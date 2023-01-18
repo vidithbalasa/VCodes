@@ -24,6 +24,13 @@ export default function Home() {
     setSources([]);
     setLoading(true);
 
+    setTimeout(() => {
+      setAnswer('The difference between a second story and a mezzanine is that a second story is a floor that is above the first floor, and a mezzanine is a floor that is above the ground floor.');
+      setSources(['CA Building Code', 'CA Energy Code', 'CA Existing Building Code', 'CA Fire Code', 'CA Green Code', 'CA Historic Building Code', 'CA Plumbing Code'])
+      setLoading(false);
+    })
+    return
+
     const QA = httpsCallable(functions, 'qa-temp');
     QA({codebooks: selectedCodebooks, query: query})
       .then((result) => {
