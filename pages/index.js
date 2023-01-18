@@ -34,7 +34,7 @@ export default function Home() {
 
   const generateAnswer = () => {
     const QA = httpsCallable(functions, 'qa-temp');
-    QA({codebooks: selectedCodebooks, question: query})
+    QA({codebooks: selectedCodebooks, query: query})
       .then((result) => {console.log(result.data)})
       .catch((error) => {console.log(error)})
   }
