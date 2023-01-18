@@ -2,40 +2,35 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useState } from 'react'
-import { getFunctions, httpsCallable } from "firebase/functions";
-import { getApp } from '@firebase/app';
+import { httpsCallable } from "firebase/functions";
 import { functions } from '../firebase.config';
+import CodebookSelection from '../components/codebookSelection';
+import Typewriter from '../components/typewriter';
 
 export default function Home() {
-  const CODEBOOKS = [
-    'CA Building Code', 'CA Energy Code', 'CA Existing Building Code',
-    'CA Fire Code', 'CA Green Code', 'CA Historic Building Code',
-    'CA Plumbing Code'
-  ]
   const [selectedCodebooks, setSelectedCodebooks] = useState([]);
   const [query, setQuery] = useState('');
-  // const functions = getFunctions(getApp());
-
-  const selectAll = () => {
-    if (selectedCodebooks.length === CODEBOOKS.length) {
-      setSelectedCodebooks([])
-    } else {
-      setSelectedCodebooks(CODEBOOKS)
-    }
-  }
-
-  const selectBook = (e) => {
-    if (e.target.checked) {
-      setSelectedCodebooks([...selectedCodebooks, e.target.value])
-    } else {
-      setSelectedCodebooks(selectedCodebooks.filter((cb) => cb !== e.target.value))
-    }
-  }
+  const [loading, setLoading] = useState(false);
+  const [answer, setAnswer] = useState('');
+  const [sources, setSources] = useState([]);
 
   const generateAnswer = () => {
+    if(selectedCodebooks.length === 0) { 
+      alert('Please select at least one codebook'); return 
+    }
+    if(query === '') { alert('Please enter a question'); return }
+
+    setAnswer('');
+    setLoading(true);
+
     const QA = httpsCallable(functions, 'qa-temp');
     QA({codebooks: selectedCodebooks, query: query})
-      .then((result) => {console.log(result.data)})
+      .then((result) => {
+        console.log(result.data)
+        setAnswer(result.data.answer);
+        setSources(result.data.sources);
+        setLoading(false);
+      })
       .catch((error) => {console.log(error)})
   }
 
@@ -48,46 +43,15 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        {/* button that changes the preferred color scheme */}
-        <button className={styles.colorSchemeButton}
-          onClick = {() => {
-            if (document.documentElement.getAttribute('data-theme') === 'light') {
-              document.documentElement.setAttribute('data-theme', 'dark')
-            } else {
-              document.documentElement.setAttribute('data-theme', 'light')
-            }
-          }}
-        >
-          {/* <Image src="/sun.svg" alt="sun" width={20} height={20} /> */}
-          Change color
-        </button>
         <h1 className={`${styles.title} ${styles.header}`}>Untitled Codebook Demo</h1>
         <h5 className={`${styles.subtitle} ${styles.header}`}>
           Tools for the <span className={styles.blueSubtext}>Modern Architect</span>
         </h5>
-        <div>
-          <div className={styles.selectors}>
-            <button className={styles.selectAll} onClick={selectAll}>
-              {selectedCodebooks.length === CODEBOOKS.length ? 'Unselect All' : 'Select All'}
-            </button>
-            <div className={styles.codebookSelectors}>
-              {
-                CODEBOOKS.map((codebook, index) => {
-                  return (
-                    <div key={index} className={styles.checkbox}>
-                      <input 
-                        type="checkbox" id={codebook}
-                        name={codebook} value={codebook}
-                        checked={selectedCodebooks.includes(codebook)}
-                        onChange={selectBook}
-                      />
-                      <label for={codebook}>{codebook}</label>
-                    </div>
-                  )
-                })
-              }
-            </div>
-          </div>
+        <div className={styles.conrainer}>
+          <CodebookSelection 
+            selectedCodebooks={selectedCodebooks}
+            setSelectedCodebooks={setSelectedCodebooks}
+          />
           <div className={styles.queryContainer}>
             <div className={styles.queryBox}>
               <label for="query" className={styles.queryLabel}>Ask a Question</label>
@@ -101,6 +65,8 @@ export default function Home() {
               </div>
             </div>
           </div>
+          {answer && <Typewriter text={answer} />}
+          {sources && <div className={styles.sourcesBox}>{sources.map((source, index) => <p key={index}>{source}</p>)}</div>}
         </div>
       </main>
 

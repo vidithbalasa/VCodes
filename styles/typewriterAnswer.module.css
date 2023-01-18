@@ -1,0 +1,12 @@
+.textBox {
+  max-width: 700px;
+  margin-left: 40px;
+  margin-top: 40px;
+}
+
+.text {
+  text-align: start;
+  font-weight: 200;
+  letter-spacing: .05em;
+  font-size: 20px;
+}
