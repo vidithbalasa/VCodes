@@ -39,7 +39,7 @@ export default function CodebookSelection({ selectedCodebooks, setSelectedCodebo
                   checked={selectedCodebooks.includes(codebook)}
                   onChange={selectBook}
                 />
-                <label for={codebook}>{codebook}</label>
+                <label>{codebook}</label>
               </div>
             )
           })

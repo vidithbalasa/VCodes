@@ -9,7 +9,7 @@ export default function Typewriter({ text }) {
   useEffect(() => {
     if (visibleText == text) return;
     setTimeout(()=>{
-      setVisibleText(curr => curr + text.charAt(index.current));
+      setVisibleText(text.substring(0, index.current));
       index.current += 1;
     }, 30)
   }, [visibleText, text]);

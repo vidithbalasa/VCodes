@@ -21,6 +21,7 @@ export default function Home() {
     if(query === '') { alert('Please enter a question'); return }
 
     setAnswer('');
+    setSources([]);
     setLoading(true);
 
     const QA = httpsCallable(functions, 'qa-temp');
@@ -54,7 +55,7 @@ export default function Home() {
           />
           <div className={styles.queryContainer}>
             <div className={styles.queryBox}>
-              <label for="query" className={styles.queryLabel}>Ask a Question</label>
+              <label className={styles.queryLabel}>Ask a Question</label>
               <div className={styles.queryInputBox}>
                 <input 
                   type="text" name="query"
@@ -66,7 +67,14 @@ export default function Home() {
             </div>
           </div>
           {answer && <Typewriter text={answer} />}
-          {sources && <div className={styles.sourcesBox}>{sources.map((source, index) => <p key={index}>{source}</p>)}</div>}
+          {sources.length > 0 && (
+            <div className={styles.sourcesBox}>
+              Relevant Sections:
+              <div className={styles.sources}>
+                {sources.join(' || ')}
+              </div>
+            </div>
+          )}
         </div>
       </main>
 
