@@ -2,8 +2,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useState } from 'react'
-import { getFunctions } from "firebase/functions";
+import { getFunctions, httpsCallable } from "firebase/functions";
 import { getApp } from '@firebase/app';
+import { functions } from '../firebase.config';
 
 export default function Home() {
   const CODEBOOKS = [
@@ -32,7 +33,7 @@ export default function Home() {
   }
 
   const generateAnswer = () => {
-    const QA = functions.httpsCallable('qa-temp');
+    const QA = httpsCallable(functions, 'qa-temp');
     QA({codebooks: selectedCodebooks, question: query})
       .then((result) => {console.log(result.data)})
       .catch((error) => {console.log(error)})
