@@ -13,7 +13,7 @@ export default function Home() {
   ]
   const [selectedCodebooks, setSelectedCodebooks] = useState([]);
   const [query, setQuery] = useState('');
-  const functions = getFunctions(getApp());
+  // const functions = getFunctions(getApp());
 
   const selectAll = () => {
     if (selectedCodebooks.length === CODEBOOKS.length) {
