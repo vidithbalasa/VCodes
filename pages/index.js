@@ -62,18 +62,21 @@ export default function Home() {
                   placeholder="What's the difference between a second story and a mezzanine?" 
                   className={styles.queryInput} value={query} onChange={(e) => setQuery(e.target.value)}
                 />
-                <button className={styles.queryButton} onClick={generateAnswer}>Generate Answer</button>
+                <button className={styles.queryButton} onClick={generateAnswer} disabled={loading}>Generate Answer</button>
               </div>
             </div>
           </div>
-          {answer && <Typewriter text={answer} />}
-          {sources.length > 0 && (
-            <div className={styles.sourcesBox}>
-              Relevant Sections:
-              <div className={styles.sources}>
-                {sources.join(' || ')}
-              </div>
-            </div>
+          {answer && (
+            <Typewriter text={answer}>
+              {sources.length > 0 && (
+                <div className={styles.sourcesBox}>
+                  Relevant Sections:
+                  <div className={styles.sources}>
+                    {sources.join(' || ')}
+                  </div>
+                </div>
+              )}
+            </Typewriter>
           )}
         </div>
       </main>

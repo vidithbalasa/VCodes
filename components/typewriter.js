@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import styles from '../styles/typewriterAnswer.module.css'
 
 
-export default function Typewriter({ text }) {
+export default function Typewriter({ text, children }) {
   const [visibleText, setVisibleText] = useState('');
   let index = useRef(0);
 
@@ -15,12 +15,15 @@ export default function Typewriter({ text }) {
   }, [visibleText, text]);
 
   return (
-    <div className={styles.textBox}>
-      <h4 className={styles.text}>
-        {/* {answer} */}
-        {visibleText}
-        {/* {text} */}
-      </h4>
-    </div>
+    <>
+      <div className={styles.textBox}>
+        <h4 className={styles.text}>
+          {/* {answer} */}
+          {visibleText}
+          {/* {text} */}
+        </h4>
+      </div>
+      {visibleText == text && children}
+    </>
   )
 }
