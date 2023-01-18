@@ -23,7 +23,7 @@ export default function Typewriter({ text, children }) {
           {/* {text} */}
         </h4>
       </div>
-      {visibleText == text && children}
+      {/* {visibleText == text && children} */}
     </>
   )
 }
