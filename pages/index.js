@@ -24,8 +24,6 @@ export default function Home() {
     setSources([]);
     setLoading(true);
 
-    return
-
     const QA = httpsCallable(functions, 'qa-temp');
     QA({codebooks: selectedCodebooks, query: query})
       .then((result) => {
@@ -68,7 +66,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          {/* {answer && (
+          {answer && (
             <Typewriter text={answer}>
               {sources.length > 0 && (
                 <div className={styles.sourcesBox}>
@@ -79,8 +77,7 @@ export default function Home() {
                 </div>
               )}
             </Typewriter>
-          )} */}
-          <Typewriter text={'Testing...'} />
+          )}
         </div>
       </main>
 
