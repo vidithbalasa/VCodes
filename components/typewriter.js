@@ -20,7 +20,7 @@ export default function Typewriter({ text, children }) {
           {visibleText}
         </h4>
       </div>
-      {visibleText == text && children}
+      {visibleText.length == text.length && children}
     </>
   )
 }

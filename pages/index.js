@@ -6,6 +6,7 @@ import { httpsCallable } from "firebase/functions";
 import { functions } from '../firebase.config';
 import CodebookSelection from '../components/codebookSelection';
 import Typewriter from '../components/typewriter';
+import SourcesDisplay from '../components/sourcesDisplay';
 
 export default function Home() {
   const [selectedCodebooks, setSelectedCodebooks] = useState([]);
@@ -15,6 +16,14 @@ export default function Home() {
   const [sources, setSources] = useState([]);
 
   const generateAnswer = () => {
+    // setAnswer('Testing');
+    // setSources({
+    //   SectionOne: 'Sec One',
+    //   SectionTwo: 'Sec Two',
+    //   SectionThree: 'Sec Three',
+    // })
+    // return
+
     if(selectedCodebooks.length === 0) { 
       alert('Please select at least one codebook'); return 
     }
@@ -68,29 +77,7 @@ export default function Home() {
           </div>
           {answer && (
             <Typewriter text={answer}>
-              {/* {sources.length > 0 && (
-                <div className={styles.sourcesBox}>
-                  Relevant Sections:
-                  <div className={styles.sources}>
-                    {sources.join(' || ')}
-                  </div>
-                </div>
-              )} */}
-              {
-                <div className={styles.sourcesBox}>
-                  Relevant Sections:
-                  <div className={styles.sources}>
-                    {Object.keys(sources).map((key) => (
-                      <div key={key}>
-                        {key}
-                        <div className={styles.sources}>
-                          {key.join(' || ')}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              }
+              <SourcesDisplay sources={sources} />
             </Typewriter>
           )}
         </div>
