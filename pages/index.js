@@ -21,7 +21,7 @@ export default function Home() {
     if(query === '') { alert('Please enter a question'); return }
 
     setAnswer('');
-    setSources([]);
+    setSources(null);
     setLoading(true);
 
     const QA = httpsCallable(functions, 'qa-temp');
@@ -68,14 +68,29 @@ export default function Home() {
           </div>
           {answer && (
             <Typewriter text={answer}>
-              {sources.length > 0 && (
+              {/* {sources.length > 0 && (
                 <div className={styles.sourcesBox}>
                   Relevant Sections:
                   <div className={styles.sources}>
                     {sources.join(' || ')}
                   </div>
                 </div>
-              )}
+              )} */}
+              {
+                <div className={styles.sourcesBox}>
+                  Relevant Sections:
+                  <div className={styles.sources}>
+                    {Object.keys(sources).map((key) => (
+                      <div key={key}>
+                        {key}
+                        <div className={styles.sources}>
+                          {key.join(' || ')}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              }
             </Typewriter>
           )}
         </div>
