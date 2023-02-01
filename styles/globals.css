@@ -1,3 +1,7 @@
+* {
+  --default-blue: #0070f3;
+}
+
 html,
 body {
   padding: 0;

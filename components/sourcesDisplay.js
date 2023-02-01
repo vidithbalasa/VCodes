@@ -16,7 +16,12 @@ export default function SourcesDisplay({ sources }) {
                 key={index}
                 onClick={() => setCurrSection(key)}
               >
-                <h4 className={styles.sourceTitleText}>{key}</h4>
+                <h4 className={styles.sourceTitleText}>
+                  { key.split('-')[1] }
+                </h4>
+                <p className={styles.sourceTitleSubtext}>
+                  { key.split('-')[0] }
+                </p>
               </div>
             )
           }

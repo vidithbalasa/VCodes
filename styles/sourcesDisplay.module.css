@@ -1,5 +1,18 @@
 .main {
   margin-top: 30px;
+  padding-bottom: 20px;
+}
+
+.sourceContent {
+  width: 600px;
+  padding: 15px;
+  line-height: 1.4;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 10px;
 }
 
 .sourcesContainer {
@@ -12,31 +25,32 @@
 .sourcesTitles {
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 200px;
-  padding: 0 15px;
-  justify-content: center;
   border-right: 1px solid black;
 }
 
 .sourceTitle {
-  margin-bottom: 15px;
   text-align: center;
-}
-
-.sourceTitle:hover {
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-bottom: 1px solid black;
+  height: auto;
+  padding: 20px 5px;
 }
 
-.sourceTitle:first-child {
-  margin-top: 15px;
+.sourceTitle:last-child {
+  border-bottom: none;
+  height: 100%;
 }
 
 .selectedSourceTitle {
-  background-color: #e6e6e6;
+  background-color: rgba(0, 112, 243, 0.5);
 }
 
-.sourceContent {
-  width: 600px;
-  padding: 15px;
+.sourceTitleSubtext {
+  font-size: 12px;
+  color: #4a4a4a;
+  padding-top: 4px;
 }
