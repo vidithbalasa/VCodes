@@ -7,6 +7,7 @@ import { functions } from '../firebase.config';
 import CodebookSelection from '../components/codebookSelection';
 import Typewriter from '../components/typewriter';
 import SourcesDisplay from '../components/sourcesDisplay';
+import Loader from '../components/loader';
 
 export default function Home() {
   const [selectedCodebooks, setSelectedCodebooks] = useState([]);
@@ -16,12 +17,16 @@ export default function Home() {
   const [sources, setSources] = useState([]);
 
   const generateAnswer = () => {
-    // setAnswer('Testing');
-    // setSources({
-    //   SectionOne: 'Sec One',
-    //   SectionTwo: 'Sec Two',
-    //   SectionThree: 'Sec Three',
-    // })
+    // setLoading(true);
+    // setTimeout(() => {
+    //   setLoading(false);
+    //   setAnswer('Testing what an actual response would look like and when I should change loading');
+    //   setSources({
+    //     SectionOne: 'Sec One',
+    //     SectionTwo: 'Sec Two',
+    //     SectionThree: 'Sec Three',
+    //   })
+    // }, 1000);
     // return
 
     if(selectedCodebooks.length === 0) { 
@@ -37,9 +42,9 @@ export default function Home() {
     QA({codebooks: selectedCodebooks, query: query})
       .then((result) => {
         console.log(result.data)
+        setLoading(false);
         setAnswer(result.data.answer);
         setSources(result.data.sources);
-        setLoading(false);
       })
       .catch((error) => {console.log(error)})
   }
@@ -79,6 +84,11 @@ export default function Home() {
             <Typewriter text={answer}>
               <SourcesDisplay sources={sources} />
             </Typewriter>
+          )}
+          {loading && (
+            <div className={styles.loaderContainer}>
+              <Loader />
+            </div>
           )}
         </div>
       </main>
